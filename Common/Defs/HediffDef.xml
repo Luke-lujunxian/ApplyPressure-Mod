@@ -1,0 +1,9 @@
+<Defs>
+    <HediffDef>
+        <defName>ApplyingPressure</defName>
+        <label>Applying Pressure to wound</label>
+        <description>Test.</description>
+        <hediffClass>Applypressure.Hediff_ApplyingPressure</hediffClass>
+        <tendable>false</tendable>
+    </HediffDef>
+</Defs>

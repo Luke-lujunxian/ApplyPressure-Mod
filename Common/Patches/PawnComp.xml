@@ -1,0 +1,25 @@
+<Patch>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[@Name="Human"]/comps</xpath>
+            <value>
+                <li>
+                    <compClass>Applypressure.CanCrawlAlternativeActionComp</compClass>
+                </li>
+            </value>
+    </Operation>
+
+    <Operation Class="PatchOperationInsert">
+        <xpath>Defs/ThinkTreeDef[defName="Downed"]/thinkRoot[@Class="ThinkNode_ConditionalDowned"]/subNodes/li[@Class="ThinkNode_ConditionalCanCrawl"]/subNodes/li[@Class="ThinkNode_CrawlInterrupt"]/subNodes/li[@Class="JobGiver_FleeDanger"]</xpath>
+        <order>Append</order>
+            <value>
+                <li Class="Applypressure.JobGiver_ApplyPressureSafe"/>
+            </value>
+    </Operation>
+
+    <Operation Class="PatchOperationInsert">
+        <xpath>Defs/ThinkTreeDef[defName="Downed"]/thinkRoot[@Class="ThinkNode_ConditionalDowned"]/subNodes/li[@Class="ThinkNode_ConditionalCanCrawl"]/subNodes/li[@Class="ThinkNode_CrawlInterrupt"]/subNodes/li[@Class="JobGiver_FleeDanger"]</xpath>
+            <value>
+                <li Class="Applypressure.JobGiver_ApplyPressureNow"/>
+            </value>
+    </Operation>
+</Patch>
