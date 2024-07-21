@@ -4,17 +4,19 @@ using RimWorld;
 using Verse.AI;
 namespace Applypressure.HarmonyPatches
 {
+    [HarmonyPatch]
     public class Patch_ThinkNode_CrawlInterrupt
     {
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(ThinkNode_CrawlInterrupt),nameof(ThinkNode_CrawlInterrupt.TryIssueJobPackage))]
-        public static void Postfix(Pawn __pawn, ref ThinkResult __result)
+        public static void Postfix(Pawn pawn, ref ThinkResult __result)
         {
 #if DEBUG
-            Log.Message($"{__pawn}, have job {__result.Job.def}");
+            Log.Message($"{pawn}, have job {__result.Job.def}");
 #endif
             if (__result.Job.def != JobDefOf.Wait_Downed)
             {
-                CanCrawlAlternativeActionComp comp = __pawn.GetComp<CanCrawlAlternativeActionComp>();
+                CanCrawlAlternativeActionComp comp = pawn.GetComp<CanCrawlAlternativeActionComp>();
                 if (comp != null)
                 {
 #if DEBUG

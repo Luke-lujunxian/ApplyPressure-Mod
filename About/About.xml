@@ -1,7 +1,7 @@
 <ModMetaData>
 	<name>ApplyPressure</name>
 	<author>Luke_lu</author>
-    <packageId>Luke_lu.ApplyPressure</packageId>
+    <packageId>lke.ApplyPressure</packageId>
 	<supportedVersions>
 		<li>1.5</li>
 	</supportedVersions>

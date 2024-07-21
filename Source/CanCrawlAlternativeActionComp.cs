@@ -28,7 +28,7 @@ namespace Applypressure
                     {
                         defaultLabel = "ApplyPressureNow".Translate(),
                         defaultDesc = "ApplyPressureNowDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Commands/ApplyPressureNow", false),
+                        icon = ContentFinder<Texture2D>.Get("UI/Commands/APNow", false),
                         action = delegate
                         {
                             crawlAlternativeAction = CrawlAlternativeAction.pressureSafe;
@@ -40,7 +40,7 @@ namespace Applypressure
                     {
                         defaultLabel = "ApplyPressureSafe".Translate(),
                         defaultDesc = "ApplyPressureSafeDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Commands/ApplyPressureSafe", false),
+                        icon = ContentFinder<Texture2D>.Get("UI/Commands/APSafe", false),
                         action = delegate
                         {
                             crawlAlternativeAction = CrawlAlternativeAction.none;
@@ -52,7 +52,7 @@ namespace Applypressure
                     {
                         defaultLabel = "ApplyPressureNone".Translate(),
                         defaultDesc = "ApplyPressureNoneDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Commands/ApplyPressureNone", false),
+                        icon = ContentFinder<Texture2D>.Get("UI/Commands/APNone", false),
                         action = delegate
                         {
                             crawlAlternativeAction = CrawlAlternativeAction.pressureNow;

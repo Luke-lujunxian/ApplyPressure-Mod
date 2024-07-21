@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+    <ApplyPressureNow>立刻按压</ApplyPressureNow>
+    <ApplyPressureNowDesc>倒地后立刻按压止血</ApplyPressureNowDesc>
+    <ApplyPressureSafe>安全后按压</ApplyPressureSafe>
+    <ApplyPressureSafeDesc>在到爬行到安全的地点按压止血</ApplyPressureSafeDesc>
+    <ApplyPressureNone>不要按压止血</ApplyPressureNone>
+    <ApplyPressureNoneDesc>(原版)不进行按压止血</ApplyPressureNoneDesc>
+
+    <reduceBleedRate>降低流血量</reduceBleedRate>
+    <ApplyingPressureOn>正在按压</ApplyingPressureOn>
+</LanguageData>

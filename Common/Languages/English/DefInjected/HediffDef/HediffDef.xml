@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+    <ApplyingPressure.label>Applying Pressure to wound</ApplyingPressure.label>
+    <ApplyingPressure.description>This pawn is trying to apply pressure to a wound</ApplyingPressure.description>
+</LanguageData>

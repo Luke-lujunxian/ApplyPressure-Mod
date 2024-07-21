@@ -5,6 +5,7 @@
         <description>This pawn is trying to apply pressure to a wound</description>
         <hediffClass>Applypressure.Hediff_ApplyingPressure</hediffClass>
         <isBad>false</isBad>
+        <defaultLabelColor>(0.6, 0.6, 1.0)</defaultLabelColor>
         <tendable>false</tendable>
     </HediffDef>
 </Defs>

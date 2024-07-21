@@ -74,7 +74,7 @@ namespace Applypressure
         {
             return $"{Label}\n"
                 + "reduceBleedRate".Translate() + $": {-bleedRate * 100}%\n" +
-                "Holding".Translate() + $": {targetHediff.Part.Label} {targetHediff.Label}\n\n" +
+                "ApplyingPressureOn".Translate() + $": {targetHediff.Part.Label} {targetHediff.Label}\n\n" +
                 $"{Description}" +
                 (showHediffsDebugInfo?
                 $"\n\n{bleedRate} = -{targetHediff.BleedRate} * 0.9f * {pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation)}" :"");

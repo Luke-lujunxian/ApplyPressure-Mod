@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Excluded>
+    <exclude>.git</exclude>
+    <exclude>.vs</exclude>
+    <exclude>Common\Assemblies\0Harmony.dll</exclude>
+    <exclude>Common\Assemblies\0Harmony.pdb</exclude>
+    <exclude>Common\Assemblies\0Harmony.xml</exclude>
+    <exclude>Common\Assemblies\Applypressure.pdb</exclude>
+    <exclude>packages</exclude>
+    <exclude>Source</exclude>
+  </Excluded>
+</Configuration>
