@@ -12,15 +12,15 @@ namespace Applypressure.HarmonyPatches
         public static void Postfix(Pawn pawn, ref ThinkResult __result)
         {
 #if DEBUG
-            Log.Message($"{pawn}, have job {__result.Job.def}");
+            Log.Message($"{pawn}, have job {__result}");
 #endif
-            if (__result.Job.def != JobDefOf.Wait_Downed)
+            if (__result == ThinkResult.NoJob || __result.Job.def != JobDefOf.Wait_Downed)
             {
                 CanCrawlAlternativeActionComp comp = pawn.GetComp<CanCrawlAlternativeActionComp>();
                 if (comp != null)
                 {
 #if DEBUG
-                    Log.Message($"Job.def is: {__result.Job.def} calceling" );
+                    Log.Message($"Job.def is: {__result} calceling" );
 #endif
                     comp.ApplyingPressure = false;
                 }

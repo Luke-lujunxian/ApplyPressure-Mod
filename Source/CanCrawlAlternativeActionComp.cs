@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace Applypressure
 {
@@ -32,6 +33,10 @@ namespace Applypressure
                         action = delegate
                         {
                             crawlAlternativeAction = CrawlAlternativeAction.pressureSafe;
+                            if (pawn.Downed)
+                            {
+                                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+                            }
                         }
                     };
                     break;
@@ -44,6 +49,10 @@ namespace Applypressure
                         action = delegate
                         {
                             crawlAlternativeAction = CrawlAlternativeAction.none;
+                            if (pawn.Downed)
+                            {
+                                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+                            }
                         }
                     };
                     break;
@@ -56,6 +65,10 @@ namespace Applypressure
                         action = delegate
                         {
                             crawlAlternativeAction = CrawlAlternativeAction.pressureNow;
+                            if (pawn.Downed)
+                            {
+                                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+                            }
                         }
                     };
                     break;
@@ -117,6 +130,7 @@ namespace Applypressure
             }
             else
             {
+                currentHediff = null;
                 ApplyingPressure = false;
                 Hediff oldhediff = currentHediff ?? pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
                 if (oldhediff != null)
@@ -168,19 +182,19 @@ namespace Applypressure
 #if DEBUG
             Log.Message($"ApplyingPressure is: {ApplyingPressure} ");
 #endif
-
+            mostSevere = maxBleeding;
             if (pawn != null && !pawn.Dead)
             {
                 if (mostSevere == null || mostSevere != maxBleeding)//if the most severe bleeding has changed
                 {
-                    mostSevere = maxBleeding;
+                    
                     if (ApplyingPressure)
                     {
                         Hediff oldhediff = pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
                         if (oldhediff == null)
                         {
 
-                            Hediff hediff = HediffMaker.MakeHediff(ApplypressureDefOf.ApplyingPressure, pawn, mostSevere.Part);
+                            Hediff hediff = HediffMaker.MakeHediff(ApplypressureDefOf.ApplyingPressure, pawn, null);
                             ((Hediff_ApplyingPressure)hediff).targetHediff = mostSevere;
                             pawn.health.AddHediff(hediff);
 

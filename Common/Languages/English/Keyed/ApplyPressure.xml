@@ -2,7 +2,7 @@
 <LanguageData>
     <ApplyPressureNow>Apply Pressure Now</ApplyPressureNow>
     <ApplyPressureNowDesc>Apply Pressure on spot</ApplyPressureNowDesc>
-    <ApplyPressureSafe>Apply Pressure when safely</ApplyPressureSafe>
+    <ApplyPressureSafe>Apply Pressure when safe</ApplyPressureSafe>
     <ApplyPressureSafeDesc>Apply Pressure on safe location</ApplyPressureSafeDesc>
     <ApplyPressureNone>Don't Apply Pressure</ApplyPressureNone>
     <ApplyPressureNoneDesc>(Vanilla)Don't apply pressure to wound</ApplyPressureNoneDesc>
