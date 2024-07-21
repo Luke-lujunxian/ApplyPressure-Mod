@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using Verse;
 
@@ -11,6 +10,7 @@ namespace Applypressure
         public CrawlAlternativeAction crawlAlternativeAction;
         public bool ApplyingPressure;
         public Hediff mostSevere;
+        private Hediff_ApplyingPressure currentHediff = null;
 
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -89,38 +89,36 @@ namespace Applypressure
                             }
                         }
                     }
-                        Hediff oldhediff = pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
-                        if (oldhediff == null)
-                        {
-                            //Hediff hediff = new Hediff_ApplyingPressure(mostSevere);
-#if DEBUG
-                            Log.Message($"{mostSevere} on {mostSevere.Part}");
-#endif
-                            Hediff hediff;
-                            if (pawn.health.hediffSet.PartIsMissing(mostSevere.Part))
-                            {
-                                hediff = HediffMaker.MakeHediff(ApplypressureDefOf.ApplyingPressure, pawn, mostSevere.Part.parent);
 
-                            }
-                            else
-                            {
-                                hediff = HediffMaker.MakeHediff(ApplypressureDefOf.ApplyingPressure, pawn, mostSevere.Part);
+                    if (currentHediff == null)
+                    {
+                        currentHediff = (Hediff_ApplyingPressure)pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
 
-                            }
-                            ((Hediff_ApplyingPressure)hediff).targetHediff = mostSevere;
-                            pawn.health.AddHediff(hediff);
+                    }
+
+                    if (currentHediff == null)
+                    {
+                        //Hediff hediff = new Hediff_ApplyingPressure(mostSevere);
 #if DEBUG
-                            Log.Message($"Adding Hediff");
+                        Log.Message($"{mostSevere} on {mostSevere.Part}");
 #endif
-                        }
-                    
+                        Hediff hediff;
+                        hediff = HediffMaker.MakeHediff(ApplypressureDefOf.ApplyingPressure, pawn, null);
+                        currentHediff = (Hediff_ApplyingPressure)hediff;
+                        pawn.health.AddHediff(hediff);
+#if DEBUG
+                        Log.Message($"Adding Hediff");
+#endif
+
+                    }
+                    currentHediff.targetHediff = mostSevere;
 
                 }
             }
             else
             {
                 ApplyingPressure = false;
-                Hediff oldhediff = pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
+                Hediff oldhediff = currentHediff ?? pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
                 if (oldhediff != null)
                 {
                     pawn.health.RemoveHediff(oldhediff);
@@ -185,7 +183,7 @@ namespace Applypressure
                             Hediff hediff = HediffMaker.MakeHediff(ApplypressureDefOf.ApplyingPressure, pawn, mostSevere.Part);
                             ((Hediff_ApplyingPressure)hediff).targetHediff = mostSevere;
                             pawn.health.AddHediff(hediff);
-                            
+
                         }
                     }
 

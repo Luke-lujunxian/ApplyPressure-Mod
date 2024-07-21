@@ -1,15 +1,10 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace Applypressure
 {
-    public class Hediff_ApplyingPressure: Hediff
+    public class Hediff_ApplyingPressure : Hediff
     {
         private float bleedRate = 0f;
         public override float BleedRate => bleedRate;
@@ -37,31 +32,52 @@ namespace Applypressure
 
 
 
-            if (targetHediff != null) {
-                if (targetHediff.IsTended())
+            if (targetHediff == null)
+            {
+                Log.Warning("Apply pressure hediff is add with no targetHediff, calculating most severe bleeding");
+                HediffSet hediffs = pawn.health.hediffSet;
+                Hediff maxBleeding = null;
+                foreach (Hediff hediff in hediffs.hediffs)
                 {
-                    Severity = 0;
-                    return;
+                    if (hediff is Hediff_Injury && hediff.BleedRate > 0)
+                    {
+#if DEBUG
+                        Log.Message($"hediff {hediff} has {hediff.BleedRate}");
+#endif
+                        if (maxBleeding == null || (maxBleeding.BleedRate < hediff.BleedRate))
+                        {
+                            targetHediff = hediff;
+                        }
+                    }
                 }
-                bleedRate = - targetHediff.BleedRate * 0.9f * pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation);
-                return;
+
+                if (targetHediff == null)
+                {
+                    Log.Warning("Apply pressure hediff is add with no bleading, removing");
+                    this.Severity = 0;
+                }
+
             }
 
-            float tempbr = 0f;
-            List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
-            for (int i = 0; i < hediffs.Count; i++)
+            if (targetHediff.IsTended())//Treated by a doctor
             {
-                if((hediffs[i].Part == Part || hediffs[i].Part.parent == Part) && hediffs[i] != this)
-                {
-                    tempbr += hediffs[i].BleedRate;
-                }
+                Severity = 0;
+                return;
             }
-            bleedRate = -tempbr * 0.9f * pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation); //resuce bleading
+            bleedRate = -targetHediff.BleedRate * 0.9f * pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation);
+            return;
+
+
         }
 
         public override string GetTooltip(Pawn pawn, bool showHediffsDebugInfo)
         {
-            return "reduceBleedRate".Translate() +$": {-bleedRate*100}%\n" + base.GetTooltip(pawn, showHediffsDebugInfo);
+            return $"{Label}\n"
+                + "reduceBleedRate".Translate() + $": {-bleedRate * 100}%\n" +
+                "Holding".Translate() + $": {targetHediff.Part.Label} {targetHediff.Label}\n\n" +
+                $"{Description}" +
+                (showHediffsDebugInfo?
+                $"\n\n{bleedRate} = -{targetHediff.BleedRate} * 0.9f * {pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation)}" :"");
         }
 
         public override void ExposeData()
@@ -70,5 +86,5 @@ namespace Applypressure
             Scribe_References.Look(ref targetHediff, "targetHediff");
         }
     }
-    
+
 }
