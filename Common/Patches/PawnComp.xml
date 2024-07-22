@@ -1,6 +1,6 @@
 <Patch>
     <Operation Class="PatchOperationAdd">
-        <xpath>/Defs/ThingDef[@Name="Human"]/comps</xpath>
+        <xpath>/Defs/ThingDef[@Name="BasePawn"]/comps</xpath>
             <value>
                 <li>
                     <compClass>Applypressure.CanCrawlAlternativeActionComp</compClass>
