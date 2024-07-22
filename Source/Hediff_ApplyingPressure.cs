@@ -64,7 +64,7 @@ namespace Applypressure
                 Severity = 0;
                 return;
             }
-            bleedRate = -targetHediff.BleedRate * 0.9f * pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation);
+            bleedRate = -targetHediff.BleedRate * 0.9f * System.Math.Max(pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation), Applypressure.settings.manipulationCap);
             return;
 
 
@@ -77,7 +77,7 @@ namespace Applypressure
                 "ApplyingPressureOn".Translate() + $": {targetHediff.Part.Label} {targetHediff.Label}\n\n" +
                 $"{Description}" +
                 (showHediffsDebugInfo?
-                $"\n\n{bleedRate} = -{targetHediff.BleedRate} * 0.9f * {pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation)}" :"");
+                $"\n\n{bleedRate} = -{targetHediff.BleedRate} * {Applypressure.settings.stopBleedFactor} * Max({pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation)},{ Applypressure.settings.manipulationCap})" :"");
         }
 
         public override void ExposeData()
