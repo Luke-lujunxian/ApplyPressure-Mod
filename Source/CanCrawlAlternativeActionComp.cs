@@ -79,7 +79,10 @@ namespace Applypressure
         {
             base.CompTick();
             Pawn pawn = parent as Pawn;
-            if (pawn.health.Downed && ApplyingPressure && pawn.IsPlayerControlled)
+            if (!pawn.IsPlayerControlled) {
+                return;
+            }
+            if (pawn.health.Downed && ApplyingPressure)
             {
 
                 if (pawn != null && !pawn.Dead)
