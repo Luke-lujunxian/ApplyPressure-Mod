@@ -10,4 +10,5 @@
     <reduceBleedRate>降低流血量</reduceBleedRate>
     <ApplyingPressureOn>正在按压</ApplyingPressureOn>
     <Applypressure>按压止血</Applypressure>
+    <defaultAction>倒地默认行为</defaultAction>
 </LanguageData>

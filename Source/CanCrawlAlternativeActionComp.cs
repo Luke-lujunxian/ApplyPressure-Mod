@@ -8,7 +8,7 @@ namespace Applypressure
 {
     public class CanCrawlAlternativeActionComp : ThingComp
     {
-        public CrawlAlternativeAction crawlAlternativeAction;
+        public CrawlAlternativeAction crawlAlternativeAction = Applypressure.settings.defaultAction;
         public bool ApplyingPressure;
         public Hediff mostSevere;
         private Hediff_ApplyingPressure currentHediff = null;
@@ -24,7 +24,7 @@ namespace Applypressure
 
             switch (crawlAlternativeAction)
             {
-                case CrawlAlternativeAction.pressureNow:
+                case CrawlAlternativeAction.ApplyPressureNow:
                     yield return new Command_Action
                     {
                         defaultLabel = "ApplyPressureNow".Translate(),
@@ -32,7 +32,7 @@ namespace Applypressure
                         icon = ContentFinder<Texture2D>.Get("UI/Commands/APNow", false),
                         action = delegate
                         {
-                            crawlAlternativeAction = CrawlAlternativeAction.pressureSafe;
+                            crawlAlternativeAction = CrawlAlternativeAction.ApplyPressureSafe;
                             if (pawn.Downed)
                             {
                                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
@@ -40,7 +40,7 @@ namespace Applypressure
                         }
                     };
                     break;
-                case CrawlAlternativeAction.pressureSafe:
+                case CrawlAlternativeAction.ApplyPressureSafe:
                     yield return new Command_Action
                     {
                         defaultLabel = "ApplyPressureSafe".Translate(),
@@ -48,7 +48,7 @@ namespace Applypressure
                         icon = ContentFinder<Texture2D>.Get("UI/Commands/APSafe", false),
                         action = delegate
                         {
-                            crawlAlternativeAction = CrawlAlternativeAction.none;
+                            crawlAlternativeAction = CrawlAlternativeAction.ApplyPressureNone;
                             if (pawn.Downed)
                             {
                                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
@@ -56,7 +56,7 @@ namespace Applypressure
                         }
                     };
                     break;
-                case CrawlAlternativeAction.none:
+                case CrawlAlternativeAction.ApplyPressureNone:
                     yield return new Command_Action
                     {
                         defaultLabel = "ApplyPressureNone".Translate(),
@@ -64,7 +64,7 @@ namespace Applypressure
                         icon = ContentFinder<Texture2D>.Get("UI/Commands/APNone", false),
                         action = delegate
                         {
-                            crawlAlternativeAction = CrawlAlternativeAction.pressureNow;
+                            crawlAlternativeAction = CrawlAlternativeAction.ApplyPressureNow;
                             if (pawn.Downed)
                             {
                                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
@@ -210,7 +210,7 @@ namespace Applypressure
 
         public override void PostExposeData()
         {
-            Scribe_Values.Look(ref crawlAlternativeAction, "crawlAlternativeAction", CrawlAlternativeAction.none);
+            Scribe_Values.Look(ref crawlAlternativeAction, "crawlAlternativeAction", Applypressure.settings.defaultAction);
             Scribe_Values.Look(ref ApplyingPressure, "ApplyingPressure", false);
             Scribe_References.Look(ref mostSevere, "mostSevere");
         }
@@ -219,9 +219,9 @@ namespace Applypressure
 
     public enum CrawlAlternativeAction
     {
-        none = 0,
-        pressureNow,
-        pressureSafe,
+        ApplyPressureNone = 0,
+        ApplyPressureNow,
+        ApplyPressureSafe,
     }
 
 

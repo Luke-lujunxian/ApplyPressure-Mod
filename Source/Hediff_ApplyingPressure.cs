@@ -55,19 +55,20 @@ namespace Applypressure
                 {
                     Log.Warning("Apply pressure hediff is add with no bleading, removing");
                     this.Severity = 0;
+                    return; //No bleeding, Exit to avoid null reference
                 }
 
             }
-
-            if (targetHediff.IsTended())//Treated by a doctor
+            else
             {
-                Severity = 0;
+                if (targetHediff.IsTended())//Treated by a doctor
+                {
+                    Severity = 0;
+                    return;
+                }
+                bleedRate = -targetHediff.BleedRate * 0.9f * System.Math.Max(pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation), Applypressure.settings.manipulationCap);
                 return;
             }
-            bleedRate = -targetHediff.BleedRate * 0.9f * System.Math.Max(pawn.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation), Applypressure.settings.manipulationCap);
-            return;
-
-
         }
 
         public override string GetTooltip(Pawn pawn, bool showHediffsDebugInfo)

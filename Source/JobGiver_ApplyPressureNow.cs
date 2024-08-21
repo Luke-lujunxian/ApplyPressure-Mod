@@ -26,7 +26,7 @@ namespace Applypressure
 #if DEBUG
                 Log.Message($"crawlAlternativeAction = {comp.crawlAlternativeAction}");
 #endif
-                if (comp != null && comp.crawlAlternativeAction == CrawlAlternativeAction.pressureNow)
+                if (comp != null && comp.crawlAlternativeAction == CrawlAlternativeAction.ApplyPressureNow)
                 {
                     comp.ApplyingPressure = true;
                     //Same as JobGiver_IdleForever for job system
@@ -60,7 +60,7 @@ namespace Applypressure
             }
 
             CanCrawlAlternativeActionComp comp = pawn.GetComp<CanCrawlAlternativeActionComp>();
-            if (comp != null && comp.crawlAlternativeAction == CrawlAlternativeAction.pressureSafe)
+            if (comp != null && comp.crawlAlternativeAction == CrawlAlternativeAction.ApplyPressureSafe)
             {
                 comp.ApplyingPressure = true;
 
