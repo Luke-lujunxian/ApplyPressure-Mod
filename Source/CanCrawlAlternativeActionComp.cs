@@ -17,7 +17,7 @@ namespace Applypressure
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
             Pawn pawn = parent as Pawn;
-            if (!pawn.IsPlayerControlled)
+            if (!pawn.IsColonist)
             {
                 yield break;
             }
@@ -75,9 +75,9 @@ namespace Applypressure
             }
         }
 
-        public override void CompTick()
+        public override void CompTickRare()
         {
-            base.CompTick();
+            base.CompTickRare();
             Pawn pawn = parent as Pawn;
             if (!pawn.IsColonist) {
                 return;
@@ -147,11 +147,13 @@ namespace Applypressure
             }
         }
 
+
+
         public override void PostPostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
         {
             base.PostPostApplyDamage(dinfo, totalDamageDealt);
             Pawn pawn = parent as Pawn;
-            if (!pawn.IsColonistPlayerControlled)
+            if (!pawn.IsColonist)
             {
                 ApplyingPressure = false;
                 return;
