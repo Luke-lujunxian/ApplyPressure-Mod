@@ -79,7 +79,7 @@ namespace Applypressure
         {
             base.CompTick();
             Pawn pawn = parent as Pawn;
-            if (!pawn.IsPlayerControlled) {
+            if (!pawn.IsColonist) {
                 return;
             }
             if (pawn.health.Downed && ApplyingPressure)
@@ -131,18 +131,19 @@ namespace Applypressure
 
                 }
             }
-            else
+            else if (!ApplyingPressure && currentHediff != null)
             {
+                pawn.health.RemoveHediff(currentHediff);
+//                Hediff oldhediff = currentHediff;
+//                if (oldhediff != null)
+//                {
+//                    pawn.health.RemoveHediff(oldhediff);
+//#if DEBUG
+//                    Log.Message($"Removing Hediff");
+//#endif
+//                }
                 currentHediff = null;
                 ApplyingPressure = false;
-                Hediff oldhediff = currentHediff ?? pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
-                if (oldhediff != null)
-                {
-                    pawn.health.RemoveHediff(oldhediff);
-#if DEBUG
-                    Log.Message($"Removing Hediff");
-#endif
-                }
             }
         }
 
