@@ -71,6 +71,7 @@ namespace Applypressure
             }
         }
 
+
         public override string GetTooltip(Pawn pawn, bool showHediffsDebugInfo)
         {
             return $"{Label}\n"

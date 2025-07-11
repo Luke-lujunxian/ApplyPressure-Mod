@@ -147,6 +147,33 @@ namespace Applypressure
             }
         }
 
+        public override void CompTickLong()
+        {
+            base.CompTickLong();
+            Pawn pawn = parent as Pawn;
+            if (!pawn.IsColonist)
+            {
+                return;
+            }
+            if (!pawn.health.Downed)
+            {
+                if (currentHediff != null)
+                {
+                    pawn.health.RemoveHediff(currentHediff);
+                    currentHediff = null;
+                    ApplyingPressure = false;
+                }
+                else
+                {
+                    Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(ApplypressureDefOf.ApplyingPressure);
+                    if (hediff != null)
+                    {
+                        pawn.health.RemoveHediff(hediff);
+                    }
+                }
+            }
+        }
+
 
 
         public override void PostPostApplyDamage(DamageInfo dinfo, float totalDamageDealt)

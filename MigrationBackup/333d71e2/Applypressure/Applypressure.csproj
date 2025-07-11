@@ -16,35 +16,24 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\1.5\Assemblies\</OutputPath>
+    <OutputPath>..\Common\Assemblies\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <OutputPath>..\1.5\Assemblies\</OutputPath>
+    <OutputPath>..\Common\Assemblies\</OutputPath>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release1.4|AnyCPU'">
-    <OutputPath>..\1.4\Assemblies\</OutputPath>
-    <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1.5|AnyCPU'">
-    <OutputPath>..\1.5\Assemblies\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1.6|AnyCPU'">
-    <OutputPath>..\1.6\Assemblies\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-  </PropertyGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+    <Reference Include="0Harmony, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.3.6\lib\net472\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -76,33 +65,5 @@
     <Compile Include="JobGiver_ApplyPressureNow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Lib.Harmony">
-      <Version>2.3.6</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Choose>
-    <When Condition="'$(Configuration)' == '1.6'">
-      <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*">
-          <ExcludeAssets>runtime</ExcludeAssets>
-        </PackageReference>
-      </ItemGroup>
-    </When>
-    <When Condition="'$(Configuration)' == 'Debug'">
-      <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*">
-          <ExcludeAssets>runtime</ExcludeAssets>
-        </PackageReference>
-      </ItemGroup>
-    </When>
-    <When Condition="'$(Configuration)' == '1.5'">
-      <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.*">
-          <ExcludeAssets>runtime</ExcludeAssets>
-        </PackageReference>
-      </ItemGroup>
-    </When>
-  </Choose>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
